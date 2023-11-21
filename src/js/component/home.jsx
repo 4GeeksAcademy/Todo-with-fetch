@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./styles.css";
 
-//create your first component
+
 let counter = 1;
 const Home = () => {
   const [todo, setTodo] = useState("");
@@ -76,7 +76,7 @@ const Home = () => {
       } catch (error) {
         console.error("Error creating database:", error);
       } finally {
-        setLoading(false); // Set loading to false after the request completes
+        setLoading(false); 
       }
     };
 
@@ -128,8 +128,8 @@ const Home = () => {
   }
 
   const handleFormSubmit = (evt) => {
-    evt.preventDefault(); // Prevents the default form submission behavior
-    handleClick(); // Call the same logic as the button click
+    evt.preventDefault(); 
+    handleClick(); 
   };
 
   return (
