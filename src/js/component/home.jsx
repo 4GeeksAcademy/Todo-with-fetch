@@ -1,13 +1,12 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 
-
-let counter = 1;
 const Home = () => {
+  const [counter, setCounter] = useState(1);
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [dbExist, setDbExist] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleInput = (evt) => {
     setTodo(evt.target.value);
@@ -28,7 +27,7 @@ const Home = () => {
       done: false,
       label: todo,
     };
-    counter += 1;
+    setCounter(counter + 1);
     const newTodos = [...todos, newTodo];
     await fetch("https://playground.4geeks.com/apis/fake/todos/user/Elzoeiry", {
       method: "PUT",
@@ -69,14 +68,14 @@ const Home = () => {
         const data = await res.json();
         if (
           data.msg === "The user exist" ||
-          "The user has been deleted successfully"
+          data.msg === "The user has been deleted successfully"
         ) {
           setDbExist(true);
         }
       } catch (error) {
         console.error("Error creating database:", error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -123,13 +122,13 @@ const Home = () => {
     setTodos(newTodos);
   };
 
-  if (!dbExist) {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
   const handleFormSubmit = (evt) => {
-    evt.preventDefault(); 
-    handleClick(); 
+    evt.preventDefault();
+    handleClick();
   };
 
   return (
